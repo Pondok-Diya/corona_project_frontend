@@ -1,8 +1,7 @@
 <template>
   <div>
     <b-row class="card-dest">
-      <b-col></b-col>
-      <b-col md="6" sm="12">
+      <b-col>
         <b-card :header="materi.mapel" :title="materi.materi" :sub-title="materi.submateri">
           <b-card-text>
             <b-row>
@@ -10,18 +9,12 @@
             </b-row>
             <b-row class="card-dest">
               <b-col>
-                <b-embed
-                  type="iframe"
-                  aspect="16by9"
-                  :src="materi.link"
-                  allowfullscreen
-                ></b-embed>
+                <b-embed type="iframe" aspect="16by9" :src="materi.link" allowfullscreen></b-embed>
               </b-col>
             </b-row>
           </b-card-text>
         </b-card>
       </b-col>
-      <b-col></b-col>
     </b-row>
   </div>
 </template>

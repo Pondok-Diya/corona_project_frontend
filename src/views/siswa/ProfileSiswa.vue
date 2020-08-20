@@ -1,8 +1,7 @@
 <template>
   <div>
     <b-row class="card-dest">
-      <b-col></b-col>
-      <b-col md="6" sm="12">
+      <b-col>
         <b-card header="Profile">
           <b-card-text>
             <b-row>
@@ -33,7 +32,7 @@
             <b-row>
               <b-col md="3">Tanggal lahir</b-col>
               <b-col md="1">:</b-col>
-              <b-col md="8">{{profile.tanggal_lahir}}</b-col>
+              <b-col md="8">{{dateIna(profile.tanggal_lahir)}}</b-col>
             </b-row>
             <b-row>
               <b-col md="3">Hp</b-col>
@@ -46,21 +45,21 @@
               <b-col md="8">{{profile.email}}</b-col>
             </b-row>
             <b-row class="text-center card-dest">
-                <b-col>
-                  <b-btn-group>
-                    <b-btn size="sm" @click="updateUsername">Ganti username</b-btn>
-                    <b-btn size="sm" @click="updatePassword">Ganti password</b-btn>
-                  </b-btn-group>
-                </b-col>
-              </b-row>
+              <b-col>
+                <b-btn-group>
+                  <b-btn size="sm" @click="updateUsername">Ganti username</b-btn>
+                  <b-btn size="sm" @click="updatePassword">Ganti password</b-btn>
+                </b-btn-group>
+              </b-col>
+            </b-row>
           </b-card-text>
         </b-card>
       </b-col>
-      <b-col></b-col>
     </b-row>
   </div>
 </template>
 <script>
+import moment from "moment"
 import logout from "../logout";
 import { siswa } from "../../api";
 export default {
@@ -79,8 +78,13 @@ export default {
         logout.clear();
       }
     },
-    updateUsername(){
-      this.$router.push(`/siswa/update-username/${this.$store.getters.getUser.uuid}`)
+    dateIna(value) {
+      return moment(value).format("DD-MM-Y");
+    },
+    updateUsername() {
+      this.$router.push(
+        `/siswa/update-username/${this.$store.getters.getUser.uuid}`
+      );
     },
     updatePassword() {
       this.$router.push(

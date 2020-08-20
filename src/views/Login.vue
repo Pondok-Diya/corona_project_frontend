@@ -1,8 +1,8 @@
 <template>
-  <div class="card-dest">
-    <b-row class="justify-content-center align-items-center">
+  <div>
+    <b-row class="justify-content-center align-items-center card-dest">
       <b-col md="4" sm="12">
-        <b-card title="Login">
+        <b-card title="Login" class="bg-transparent">
           <b-card-text>
             <b-form>
               <b-col>
@@ -47,8 +47,8 @@ export default {
     return {
       form: {
         username: "",
-        password: ""
-      }
+        password: "",
+      },
     };
   },
   methods: {
@@ -60,28 +60,27 @@ export default {
         okVariant: "success",
         headerClass: "p-2 border-bottom-0",
         footerClass: "p-2 border-top-0",
-        centered: true
+        centered: true,
       });
     },
     async login() {
       try {
         let data = await user.login(this.form);
         this.$store.dispatch("saveUser", data.data);
-        console.log(data.data);
         if (this.$store.getters.getUser.status == "admin") {
-          this.$router.push("/admin");
+          this.$router.push("/");
         } else {
           this.$router.push("/siswa");
         }
       } catch {
         this.showMessage();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
 .card-dest {
-  padding-top: 150px;
+  padding-top: 200px;
 }
 </style>

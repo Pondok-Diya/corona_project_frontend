@@ -1,8 +1,7 @@
 <template>
   <div>
     <b-row class="card-dest">
-      <b-col></b-col>
-      <b-col md="6" sm="12">
+      <b-col>
         <b-card header="Update password">
           <b-card-text>
             <b-col>
@@ -38,21 +37,21 @@
           </b-card-text>
         </b-card>
       </b-col>
-      <b-col></b-col>
     </b-row>
   </div>
 </template>
 <script>
 import { siswa } from "../../api";
+import logout from "../logout";
 export default {
   name: "UpdatePasswordAdmin",
   data() {
     return {
       form: {
         password_lama: "",
-        password_baru: ""
+        password_baru: "",
       },
-      confirm_password: ""
+      confirm_password: "",
     };
   },
   methods: {
@@ -63,15 +62,22 @@ export default {
       return false;
     },
     async updatePassword() {
-      if (this.isConfirmed()) {
-        let data = await siswa.updatePassword(this.$route.params.id, this.form);
-        if (data.data.msg == "Sukses") {
-          this.showMessageSukses();
+      try {
+        if (this.isConfirmed()) {
+          let data = await siswa.updatePassword(
+            this.$route.params.id,
+            this.form
+          );
+          if (data.data.msg == "Sukses") {
+            this.showMessageSukses();
+          } else {
+            this.showMessageMaaf();
+          }
         } else {
-          this.showMessageMaaf()
+          this.showMessageKonfir();
         }
-      } else {
-        this.showMessageKonfir()
+      } catch (err) {
+        logout.clear();
       }
     },
     showMessageMaaf() {
@@ -84,7 +90,7 @@ export default {
           okVariant: "success",
           headerClass: "p-2 border-bottom-0",
           footerClass: "p-2 border-top-0",
-          centered: true
+          centered: true,
         }
       );
     },
@@ -96,7 +102,7 @@ export default {
         okVariant: "success",
         headerClass: "p-2 border-bottom-0",
         footerClass: "p-2 border-top-0",
-        centered: true
+        centered: true,
       });
     },
     showMessageKonfir() {
@@ -107,10 +113,10 @@ export default {
         okVariant: "success",
         headerClass: "p-2 border-bottom-0",
         footerClass: "p-2 border-top-0",
-        centered: true
+        centered: true,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
